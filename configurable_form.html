@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurable Form with Dynamic XPath Support</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        
+        input[type="checkbox"] {
+            transform: scale(1.2);
+            margin-right: 10px;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+        }
+        
+        .checkbox-group label {
+            margin-bottom: 0;
+            font-weight: normal;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .submit-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+        
+        .xpath-info {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 30px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        
+        .xpath-info h3 {
+            margin-top: 0;
+            color: #495057;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Configurable Form</h1>
+        
+        <form id="configurableForm">
+            <!-- Freight Amount - Text Input -->
+            <div class="form-group">
+                <label for="freight-amount">Freight Amount</label>
+                <input type="number" 
+                       id="freight-amount" 
+                       name="freight-amount"
+                       data-column-name="Freight Amount"
+                       placeholder="Enter freight amount"
+                       step="0.01">
+            </div>
+            <div class="form-group">
+                <label for="freight-amount-2">Freight Amount 2</label>
+                <input type="number" 
+                       id="freight-amount-2" 
+                       name="freight-amount-2"
+                       data-column-name="Freight Amount 2"
+                       placeholder="Enter freight amount 2"
+                       step="0.01">
+            </div>
+            
+            <!-- Full Credit Insurance Amount - Checkbox -->
+            <div class="form-group">
+                <div class="checkbox-group">
+                    <input type="checkbox" 
+                           id="full-credit-insurance" 
+                           name="full-credit-insurance"
+                           data-column-name="Full Credit insurance mount">
+                    <label for="full-credit-insurance">Full Credit insurance mount</label>
+                </div>
+            </div>
+
+            <!-- Another Checkbox -->
+            <div class="form-group">
+                <div class="checkbox-group">
+                    <input type="checkbox" 
+                           id="another-checkbox" 
+                           name="another-checkbox"
+                           data-column-name="Another Checkbox">
+                    <label for="another-checkbox">Another Checkbox</label>
+                </div>
+            </div>
+            
+            <!-- Gender Dropdown -->
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select id="gender" 
+                        name="gender"
+                        data-column-name="Gender">
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+            
+            <!-- Parameter 3 - Text Input -->
+             <!--
+            <div class="form-group">
+                <label for="parameter-3">Parameter 3</label>
+                <input type="text" 
+                       id="parameter-3" 
+                       name="parameter-3"
+                       data-column-name="Parameter 3"
+                       placeholder="Enter parameter 3 value">
+            </div>
+            -->
+
+            
+            <!-- Remarks - Textarea -->
+             <!--
+            <div class="form-group">
+                <label for="remarks">Remarks</label>
+                <textarea id="remarks" 
+                          name="remarks"
+                          data-column-name="Remarks"
+                          placeholder="Enter remarks"></textarea>
+            </div>
+            -->
+            <!-- Re-involving - Text Input -->
+             <!--
+            <div class="form-group">
+                <label for="re-involving">Re-involving</label>
+                <input type="text" 
+                       id="re-involving" 
+                       name="re-involving"
+                       data-column-name="Re-involving"
+                       placeholder="Enter re-involving value">
+            </div>
+            -->
+            <button type="submit" class="submit-btn">Submit Form</button>
+        </form>
+        
+        <div class="xpath-info">
+            <h3>Dynamic XPath Examples:</h3>
+            <p><strong>Freight Amount:</strong> //input[@data-column-name='Freight Amount']</p>
+            <p><strong>Freight Amount 2:</strong> //input[@data-column-name='Freight Amount 2']</p>
+            <p><strong>Full Credit insurance mount:</strong> //input[@data-column-name='Full Credit insurance mount']</p>
+            <p><strong>Another Checkbox:</strong> //input[@data-column-name='Another Checkbox']</p>
+            <p><strong>Gender:</strong> //select[@data-column-name='Gender']</p>
+            <br>
+            <p><strong>Generic XPath Pattern:</strong> //*[@data-column-name='COLUMN_NAME']</p>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to demonstrate dynamic XPath functionality
+        document.getElementById('configurableForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Example of how to get values using column names
+            const columnNames = [
+                'Freight Amount',
+                'Freight Amount 2',
+                'Full Credit insurance mount',
+                'Another Checkbox',
+                'Gender',
+                'Parameter 3',
+                'Remarks',
+                'Re-involving'
+            ];
+            
+            console.log('Form values by column name:');
+            columnNames.forEach(columnName => {
+                const element = document.querySelector(`[data-column-name="${columnName}"]`);
+                if (element) {
+                    const value = element.type === 'checkbox' ? element.checked : element.value;
+                    console.log(`${columnName}: ${value}`);
+                }
+            });
+            
+            alert('Form submitted! Check console for values.');
+        });
+        
+        // Function to demonstrate dynamic XPath-like selection
+        function getElementByColumnName(columnName) {
+            return document.querySelector(`[data-column-name="${columnName}"]`);
+        }
+        
+        // Example usage
+        console.log('Available functions:');
+        console.log('getElementByColumnName("Freight Amount") - returns the freight amount input');
+        console.log('getElementByColumnName("Full Credit insurance mount") - returns the checkbox');
+    </script>
+</body>
+</html>
